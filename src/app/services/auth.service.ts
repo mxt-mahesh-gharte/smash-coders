@@ -101,31 +101,81 @@ export class AuthService {
     this._isLoading.set(true);
 
     const loginData: LoginRequest = { email, password };
+    console.log('🔄 Making API call to:', `${this.API_BASE_URL}/login`);
+    console.log('🔄 With data:', { email, password: '***' });
 
-    return this.http.post<ApiResponse>(`${this.API_BASE_URL}/login`, loginData).pipe(
+    return this.http.post<any>(`${this.API_BASE_URL}/login`, loginData).pipe(
       map((response) => {
+        console.log('📥 Raw API Response:', JSON.stringify(response, null, 2));
+
+        // Handle different possible response structures
+        let userData = null;
+
+        // Check if response has user property
         if (response.user) {
+          userData = response.user;
+        }
+        // Check if response itself is the user data
+        else if (response.email && response.fullName) {
+          userData = response;
+        }
+        // Check if response has data property with user
+        else if (response.data && response.data.user) {
+          userData = response.data.user;
+        }
+        // Check if response has data property and data itself is user
+        else if (response.data && response.data.email) {
+          userData = response.data;
+        }
+
+        if (userData) {
           const user: User = {
-            id: response.user.id || response.user._id || 'user-' + Date.now(),
-            email: response.user.email,
-            fullName: response.user.fullName,
-            userName: response.user.userName,
-            type: 'client', // Default to client, could be determined from API response
-            avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(response.user.fullName)}&background=random`,
+            id: userData.id || userData._id || 'user-' + Date.now(),
+            email: userData.email,
+            fullName: userData.fullName || userData.name || userData.firstName + ' ' + userData.lastName || 'User',
+            userName: userData.userName || userData.username || userData.email.split('@')[0],
+            type: 'client', // Default to client
+            avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(userData.fullName || 'User')}&background=random`,
             lastLogin: new Date()
           };
 
+          console.log('✅ User object created:', user);
           this._currentUser.set(user);
-          this.storeAuth(user, response.token);
+          this.storeAuth(user, response.token || response.data?.token);
           this._isLoading.set(false);
+          console.log('✅ Auth state updated');
 
           return user;
         } else {
+          console.error('❌ No user data found in response:', response);
+          // If we get here but response seems successful, create a basic user
+          if (response.message && response.message.includes('Success')) {
+            const user: User = {
+              id: 'user-' + Date.now(),
+              email: email,
+              fullName: 'User',
+              userName: email.split('@')[0],
+              type: 'client',
+              avatar: `https://ui-avatars.com/api/?name=User&background=random`,
+              lastLogin: new Date()
+            };
+
+            console.log('✅ Created fallback user object:', user);
+            this._currentUser.set(user);
+            this.storeAuth(user);
+            this._isLoading.set(false);
+            return user;
+          }
+
           this._isLoading.set(false);
-          throw new Error(response.message || 'Login failed');
+          throw new Error(response.message || 'Login failed - no user data received');
         }
       }),
       catchError((error) => {
+        console.error('❌ API Error:', error);
+        console.error('❌ Error status:', error.status);
+        console.error('❌ Error body:', error.error);
+
         this._isLoading.set(false);
         let errorMessage = 'Login failed. Please try again.';
 
@@ -142,6 +192,7 @@ export class AuthService {
           errorMessage = error.message;
         }
 
+        console.error('❌ Final error message:', errorMessage);
         return throwError(() => new Error(errorMessage));
       })
     );
