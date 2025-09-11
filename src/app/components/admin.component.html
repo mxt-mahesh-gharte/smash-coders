@@ -1,0 +1,111 @@
+<div class="admin-container">
+    <!-- Header -->
+    <header class="admin-header">
+        <div class="header-content">
+            <div class="brand-section">
+                <h1>Maxxton Admin</h1>
+                <p>Employee Dashboard</p>
+            </div>
+
+            <div class="user-section">
+                <div class="user-info">
+                    <img [src]="currentUser()?.avatar" [alt]="currentUser()?.fullName" class="user-avatar">
+                    <div class="user-details">
+                        <span class="user-name">{{ currentUser()?.fullName }}</span>
+                        <span class="user-role">Maxxton Employee</span>
+                    </div>
+                </div>
+                <button class="logout-btn" (click)="logout()">
+                    <span>Sign Out</span>
+                    <i>🚪</i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Welcome section -->
+    <section class="welcome-section">
+        <div class="welcome-content">
+            <h2>Welcome to Maxxton Admin Portal</h2>
+            <p>Manage clients, bookings, and system configuration</p>
+        </div>
+    </section>
+
+    <!-- Admin content -->
+    <div class="admin-content">
+        <div class="admin-grid">
+            <!-- Client Management -->
+            <div class="admin-card">
+                <div class="card-header">
+                    <div class="card-icon">👥</div>
+                    <h3>Client Management</h3>
+                </div>
+                <div class="card-content">
+                    <p>Manage client accounts, branding, and configurations</p>
+                    <button class="admin-btn">Manage Clients</button>
+                </div>
+            </div>
+
+            <!-- Booking Overview -->
+            <div class="admin-card">
+                <div class="card-header">
+                    <div class="card-icon">📅</div>
+                    <h3>Booking Overview</h3>
+                </div>
+                <div class="card-content">
+                    <p>View and manage all client bookings and reservations</p>
+                    <button class="admin-btn">View Bookings</button>
+                </div>
+            </div>
+
+            <!-- System Settings -->
+            <div class="admin-card">
+                <div class="card-header">
+                    <div class="card-icon">⚙️</div>
+                    <h3>System Settings</h3>
+                </div>
+                <div class="card-content">
+                    <p>Configure system-wide settings and preferences</p>
+                    <button class="admin-btn">Settings</button>
+                </div>
+            </div>
+
+            <!-- Reports -->
+            <div class="admin-card">
+                <div class="card-header">
+                    <div class="card-icon">📊</div>
+                    <h3>Reports & Analytics</h3>
+                </div>
+                <div class="card-content">
+                    <p>Generate reports and view analytics dashboard</p>
+                    <button class="admin-btn">View Reports</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent activity -->
+        <section class="activity-section">
+            <h3>Recent System Activity</h3>
+            <div class="activity-list">
+                <div class="activity-item">
+                    <div class="activity-info">
+                        <span class="activity-text">New client registration: Ocean Breeze Villas</span>
+                        <span class="activity-time">2 hours ago</span>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-info">
+                        <span class="activity-text">Booking confirmed for Mountain View Resorts</span>
+                        <span class="activity-time">4 hours ago</span>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-info">
+                        <span class="activity-text">System backup completed successfully</span>
+                        <span class="activity-time">6 hours ago</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
