@@ -185,7 +185,7 @@ export class AuthService {
         } else if (error.status === 401) {
           errorMessage = 'Invalid email or password. Please check your credentials.';
         } else if (error.status === 400) {
-          errorMessage = error.error?.message || 'Invalid login request. Please check your input.';
+          errorMessage = error.error?.message || 'Same login details entered. Please try different credentials';
         } else if (error.error?.message) {
           errorMessage = error.error.message;
         } else if (error.message && !error.message.includes('Http failure')) {
@@ -315,7 +315,7 @@ export class AuthService {
           } else if (error.error?.message?.includes('username')) {
             errorMessage = 'This username is already taken. Please choose a different username.';
           } else {
-            errorMessage = error.error?.message || 'Invalid signup data. Please check your input.';
+            errorMessage = error.error?.message || 'Same login details entered. Please try different credentials.';
           }
         } else if (error.status === 422) {
           errorMessage = 'Invalid input data. Please check all fields and try again.';
