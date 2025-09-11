@@ -1,0 +1,129 @@
+<div class="login-container">
+    <!-- Background with animated gradient -->
+    <div class="background-overlay"></div>
+
+    <!-- Main content -->
+    <div class="login-content">
+        <!-- Logo section -->
+        <div class="logo-section">
+            <div class="maxxton-logo">
+                <h1>Maxxton</h1>
+                <p>Your Gateway to Excellence</p>
+            </div>
+        </div>
+
+        <!-- Login card -->
+        <div class="login-card" [class.employee-mode]="showEmployeeLogin()">
+            <!-- Client Login (Primary) -->
+            <div class="client-login" [class.hidden]="showEmployeeLogin()">
+                <div class="card-header">
+                    <h2>Welcome Back!</h2>
+                    <p>Sign in to access your personalized dashboard</p>
+                </div>
+
+                <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="login-form">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" [value]="email()" (input)="onEmailChange($event)"
+                            placeholder="Enter your email" required autocomplete="email" [disabled]="isLoading()">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" [value]="password()"
+                            (input)="onPasswordChange($event)" placeholder="Enter your password" required
+                            autocomplete="current-password" [disabled]="isLoading()">
+                    </div>
+
+                    @if (errorMessage()) {
+                    <div class="error-message">
+                        <i class="error-icon">⚠️</i>
+                        {{ errorMessage() }}
+                    </div>
+                    }
+
+                    <button type="submit" class="login-btn primary" [disabled]="!isFormValid() || isLoading()">
+                        @if (isLoading()) {
+                        <span class="loading-spinner"></span>
+                        Signing In...
+                        } @else {
+                        Sign In
+                        }
+                    </button>
+
+                    <div class="form-footer">
+                        <a routerLink="/signup" class="signup-link">
+                            Don't have an account? <strong>Sign Up</strong>
+                        </a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Employee Login (Secondary) -->
+            <div class="employee-login" [class.visible]="showEmployeeLogin()">
+                <div class="card-header">
+                    <h2>Employee Access</h2>
+                    <p>Maxxton staff login portal</p>
+                </div>
+
+                <form #empLoginForm="ngForm" (ngSubmit)="onSubmit(empLoginForm)" class="login-form">
+                    <div class="form-group">
+                        <label for="emp-email">Email Address</label>
+                        <input type="email" id="emp-email" name="email" [value]="email()"
+                            (input)="onEmailChange($event)" placeholder="your.name@maxxton.com" required
+                            autocomplete="email" [disabled]="isLoading()">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="emp-password">Password</label>
+                        <input type="password" id="emp-password" name="password" [value]="password()"
+                            (input)="onPasswordChange($event)" placeholder="Enter your password" required
+                            autocomplete="current-password" [disabled]="isLoading()">
+                    </div>
+
+                    @if (errorMessage()) {
+                    <div class="error-message">
+                        <i class="error-icon">⚠️</i>
+                        {{ errorMessage() }}
+                    </div>
+                    }
+
+                    <button type="submit" class="login-btn secondary" [disabled]="!isFormValid() || isLoading()">
+                        @if (isLoading()) {
+                        <span class="loading-spinner"></span>
+                        Signing In...
+                        } @else {
+                        Employee Sign In
+                        }
+                    </button>
+                </form>
+            </div>
+
+            <!-- Toggle button for employee login -->
+            <div class="toggle-section">
+                @if (!showEmployeeLogin()) {
+                <button type="button" class="toggle-btn" (click)="toggleEmployeeLogin()" [disabled]="isLoading()">
+                    Maxxton Employee? <span>Click here</span>
+                </button>
+                } @else {
+                <button type="button" class="toggle-btn back" (click)="toggleEmployeeLogin()" [disabled]="isLoading()">
+                    ← Back to Client Login
+                </button>
+                }
+            </div>
+        </div>
+
+        <!-- Demo credentials section -->
+        <div class="demo-section">
+            <h3>🎯 Demo Credentials (Hackathon)</h3>
+            <div class="demo-grid">
+                @for (cred of demoCredentials; track cred.email) {
+                <button class="demo-btn" (click)="fillDemoCredentials(cred)" [disabled]="isLoading()">
+                    <strong>{{ cred.type }}</strong>
+                    <span>{{ cred.email }}</span>
+                </button>
+                }
+            </div>
+        </div>
+    </div>
+</div>

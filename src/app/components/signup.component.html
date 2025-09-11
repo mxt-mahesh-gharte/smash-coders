@@ -1,0 +1,157 @@
+<div class="signup-container">
+    <!-- Background with animated gradient -->
+    <div class="background-overlay"></div>
+
+    <!-- Main content -->
+    <div class="signup-content">
+        <!-- Logo section -->
+        <div class="logo-section">
+            <div class="maxxton-logo">
+                <h1>Join Maxxton</h1>
+                <p>Create your account in just 2 easy steps</p>
+            </div>
+        </div>
+
+        <!-- Progress indicator -->
+        <div class="progress-indicator">
+            <div class="step" [class.active]="currentStep() >= 1" [class.completed]="currentStep() > 1">
+                <div class="step-number">1</div>
+                <span>Personal Info</span>
+            </div>
+            <div class="progress-line" [class.filled]="currentStep() > 1"></div>
+            <div class="step" [class.active]="currentStep() >= 2">
+                <div class="step-number">2</div>
+                <span>Account Setup</span>
+            </div>
+        </div>
+
+        <!-- Signup card -->
+        <div class="signup-card">
+            <form #signupForm="ngForm" (ngSubmit)="onSubmit(signupForm)" class="signup-form">
+
+                <!-- Step 1: Personal Information -->
+                @if (currentStep() === 1) {
+                <div class="step-content">
+                    <div class="step-header">
+                        <h2>Tell us about yourself</h2>
+                        <p>We need some basic information to get started</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" name="fullName" [value]="fullName()"
+                            (input)="onFullNameChange($event)" placeholder="Enter your full name" required
+                            autocomplete="name" [disabled]="isLoading()">
+                        <small class="field-hint">Your display name in the system</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" [value]="email()" (input)="onEmailChange($event)"
+                            placeholder="Enter your email address" required autocomplete="email"
+                            [disabled]="isLoading()">
+                        <small class="field-hint">We'll use this for login and notifications</small>
+                    </div>
+
+                    <button type="button" class="next-btn" (click)="nextStep()"
+                        [disabled]="!isStep1Valid() || isLoading()">
+                        Continue to Account Setup
+                        <span class="arrow">→</span>
+                    </button>
+                </div>
+                }
+
+                <!-- Step 2: Account Setup -->
+                @if (currentStep() === 2) {
+                <div class="step-content">
+                    <div class="step-header">
+                        <h2>Create your account</h2>
+                        <p>Choose your username and secure password</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" [value]="username()"
+                            (input)="onUsernameChange($event)" placeholder="Choose a username" required
+                            autocomplete="username" [disabled]="isLoading()">
+                        <small class="field-hint">3+ characters, letters, numbers, and underscores only</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" [value]="password()"
+                            (input)="onPasswordChange($event)" placeholder="Create a secure password" required
+                            autocomplete="new-password" [disabled]="isLoading()">
+                        <small class="field-hint">At least 6 characters</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" [value]="confirmPassword()"
+                            (input)="onConfirmPasswordChange($event)" placeholder="Confirm your password" required
+                            autocomplete="new-password" [disabled]="isLoading()"
+                            [class.error]="!passwordsMatch() && confirmPassword() !== ''">
+                        @if (!passwordsMatch() && confirmPassword() !== '') {
+                        <small class="field-error">Passwords don't match</small>
+                        } @else {
+                        <small class="field-hint">Must match the password above</small>
+                        }
+                    </div>
+
+                    @if (errorMessage()) {
+                    <div class="error-message">
+                        <i class="error-icon">⚠️</i>
+                        {{ errorMessage() }}
+                    </div>
+                    }
+
+                    <div class="step-actions">
+                        <button type="button" class="back-btn" (click)="prevStep()" [disabled]="isLoading()">
+                            ← Back
+                        </button>
+
+                        <button type="submit" class="signup-btn" [disabled]="!isStep2Valid() || isLoading()">
+                            @if (isLoading()) {
+                            <span class="loading-spinner"></span>
+                            Creating Account...
+                            } @else {
+                            Create Account
+                            }
+                        </button>
+                    </div>
+                </div>
+                }
+            </form>
+
+            <!-- Login link -->
+            <div class="form-footer">
+                <a routerLink="/login" class="login-link">
+                    Already have an account? <strong>Sign In</strong>
+                </a>
+            </div>
+        </div>
+
+        <!-- Benefits section -->
+        <div class="benefits-section">
+            <h3>🚀 What you'll get:</h3>
+            <div class="benefits-grid">
+                <div class="benefit">
+                    <span class="benefit-icon">🎯</span>
+                    <span>Personalized Dashboard</span>
+                </div>
+                <div class="benefit">
+                    <span class="benefit-icon">⚡</span>
+                    <span>Lightning Fast Booking</span>
+                </div>
+                <div class="benefit">
+                    <span class="benefit-icon">🔒</span>
+                    <span>Secure & Private</span>
+                </div>
+                <div class="benefit">
+                    <span class="benefit-icon">📱</span>
+                    <span>Mobile Optimized</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
