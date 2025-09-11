@@ -157,27 +157,5 @@
         }
       </div>
     </div>
-
-    <!-- Demo credentials toggle -->
-    <div class="demo-toggle">
-      <button class="demo-toggle-btn" (click)="toggleDemoCredentials()" [disabled]="isLoading()">
-        {{ showDemoCredentials() ? 'Hide' : 'Show' }} Demo Credentials
-      </button>
-    </div>
-
-    <!-- Demo credentials section - now collapsible -->
-    @if (showDemoCredentials()) {
-    <div class="demo-section">
-      <h3>🎯 Demo Credentials</h3>
-      <div class="demo-grid">
-        @for (cred of demoCredentials; track cred.email) {
-        <button class="demo-btn" (click)="fillDemoCredentials(cred)" [disabled]="isLoading()">
-          <strong>{{ cred.type }}</strong>
-          <span>{{ cred.email }}</span>
-        </button>
-        }
-      </div>
-    </div>
-    }
   </div>
 </div>

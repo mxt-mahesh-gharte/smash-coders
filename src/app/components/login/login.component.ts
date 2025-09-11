@@ -23,7 +23,6 @@ export class LoginComponent {
   showEmployeeLogin = signal(false);
   loginType = signal<'client' | 'employee'>('client');
   errorMessage = signal('');
-  showDemoCredentials = signal(false);
   showSignupSuggestion = signal(false);
   showPassword = signal(false);
   showEmpPassword = signal(false);
@@ -32,12 +31,7 @@ export class LoginComponent {
   isLoading = this.authService.isLoading;
   isFormValid = computed(() =>
     this.email().trim() !== '' && this.password().length >= 6
-  );    // Demo credentials for testing (use actual API accounts)
-  demoCredentials = [
-    { email: 'chaky@gmail.com', password: '@chakyBro09', type: 'Registered User' },
-    { email: 'demo@maxxton.com', password: 'demo123', type: 'Demo Account' },
-    { email: 'test@client.com', password: 'test123', type: 'Test Client' }
-  ];
+  );
 
   onEmailChange(event: Event) {
     const value = (event.target as HTMLInputElement).value;
@@ -73,15 +67,19 @@ export class LoginComponent {
     const email = this.email();
     const password = this.password();
 
+    console.log('Attempting login with:', { email, password: '***', loginType: this.loginType() });
+
     const loginObservable = this.loginType() === 'employee'
       ? this.authService.employeeLogin(email, password)
       : this.authService.clientLogin(email, password);
 
     loginObservable.subscribe({
       next: (user) => {
-        console.log('Login successful:', user);
-        this.showSignupSuggestion.set(false); // Hide signup suggestion on success
-        this.errorMessage.set(''); // Clear any error messages
+        console.log('✅ Login successful:', user);
+        console.log('✅ User type:', user.type);
+
+        this.showSignupSuggestion.set(false);
+        this.errorMessage.set('');
 
         // Show success toast with personalized message
         const welcomeMessage = user.type === 'client'
@@ -90,37 +88,32 @@ export class LoginComponent {
 
         this.toastService.showSuccess(welcomeMessage);
 
-        // Navigate based on user type with a small delay to ensure toast is visible
+        // Force navigation using window.location for testing
+        console.log('🔄 Starting navigation in 1 second...');
         setTimeout(() => {
           if (user.type === 'client') {
-            this.router.navigate(['/dashboard']);
+            console.log('🏠 Redirecting to dashboard...');
+            window.location.href = '/dashboard';
           } else {
-            this.router.navigate(['/admin']);
+            console.log('🏢 Redirecting to admin...');
+            window.location.href = '/admin';
           }
-        }, 500); // 500ms delay to show toast before navigation
+        }, 1000);
       },
       error: (error) => {
+        console.error('❌ Login failed:', error);
         const errorMsg = error.message || 'Login failed. Please try again.';
         this.errorMessage.set(errorMsg);
+        console.log('Error message set to:', errorMsg);
 
         // Show signup suggestion if user not found
         if (errorMsg.includes('not found') || errorMsg.includes('Account not found')) {
           this.showSignupSuggestion.set(true);
+          console.log('Showing signup suggestion');
         } else {
           this.showSignupSuggestion.set(false);
         }
       }
     });
-  }
-
-  fillDemoCredentials(cred: any) {
-    this.email.set(cred.email);
-    this.password.set(cred.password);
-    this.loginType.set(cred.email.includes('@maxxton.com') ? 'employee' : 'client');
-    this.showEmployeeLogin.set(cred.email.includes('@maxxton.com'));
-  }
-
-  toggleDemoCredentials() {
-    this.showDemoCredentials.set(!this.showDemoCredentials());
   }
 }

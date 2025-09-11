@@ -1,0 +1,166 @@
+// Client Theme Configuration
+// This file allows easy customization for different clients
+// Simply override the CSS custom properties below
+
+// ===================================
+// MAXXTON THEME (Default)
+// ===================================
+
+:root {
+  // Override primary colors for client branding
+  --color-primary-500: #6366f1; // Maxxton purple
+  --color-primary-600: #5b21b6;
+  --color-primary-700: #4c1d95;
+  
+  // Override secondary colors
+  --color-secondary-500: #a855f7; // Complementary purple
+  --color-secondary-600: #9333ea;
+  
+  // Custom gradients for this client
+  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  
+  // Client-specific spacing (if needed)
+  // --space-custom: 1.125rem; // 18px
+  
+  // Client-specific shadows
+  --shadow-brand: 0 10px 25px rgba(99, 102, 241, 0.2);
+}
+
+// ===================================
+// ALTERNATIVE CLIENT THEMES
+// ===================================
+
+// Example: Healthcare Client Theme
+.theme-healthcare {
+  --color-primary-500: #10b981; // Medical green
+  --color-primary-600: #059669;
+  --color-primary-700: #047857;
+  
+  --color-secondary-500: #3b82f6; // Trust blue
+  --color-secondary-600: #2563eb;
+  
+  --gradient-primary: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+  --gradient-hero: linear-gradient(135deg, #34d399 0%, #60a5fa 100%);
+  
+  --shadow-brand: 0 10px 25px rgba(16, 185, 129, 0.2);
+}
+
+// Example: Finance Client Theme
+.theme-finance {
+  --color-primary-500: #1e40af; // Professional blue
+  --color-primary-600: #1d4ed8;
+  --color-primary-700: #1e3a8a;
+  
+  --color-secondary-500: #059669; // Success green
+  --color-secondary-600: #047857;
+  
+  --gradient-primary: linear-gradient(135deg, #1e40af 0%, #059669 100%);
+  --gradient-hero: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+  
+  --shadow-brand: 0 10px 25px rgba(30, 64, 175, 0.2);
+}
+
+// Example: Tech Startup Theme
+.theme-startup {
+  --color-primary-500: #f59e0b; // Energetic orange
+  --color-primary-600: #d97706;
+  --color-primary-700: #b45309;
+  
+  --color-secondary-500: #8b5cf6; // Creative purple
+  --color-secondary-600: #7c3aed;
+  
+  --gradient-primary: linear-gradient(135deg, #f59e0b 0%, #8b5cf6 100%);
+  --gradient-hero: linear-gradient(135deg, #fbbf24 0%, #a78bfa 100%);
+  
+  --shadow-brand: 0 10px 25px rgba(245, 158, 11, 0.2);
+}
+
+// Example: Corporate Theme
+.theme-corporate {
+  --color-primary-500: #374151; // Professional gray
+  --color-primary-600: #4b5563;
+  --color-primary-700: #6b7280;
+  
+  --color-secondary-500: #dc2626; // Corporate red
+  --color-secondary-600: #b91c1c;
+  
+  --gradient-primary: linear-gradient(135deg, #374151 0%, #dc2626 100%);
+  --gradient-hero: linear-gradient(135deg, #6b7280 0%, #ef4444 100%);
+  
+  --shadow-brand: 0 10px 25px rgba(55, 65, 81, 0.2);
+}
+
+// ===================================
+// DARK MODE VARIANTS
+// ===================================
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    // Override neutral colors for dark mode
+    --color-neutral-50: #0f172a;
+    --color-neutral-100: #1e293b;
+    --color-neutral-200: #334155;
+    --color-neutral-300: #475569;
+    --color-neutral-400: #64748b;
+    --color-neutral-500: #94a3b8;
+    --color-neutral-600: #cbd5e1;
+    --color-neutral-700: #e2e8f0;
+    --color-neutral-800: #f1f5f9;
+    --color-neutral-900: #f8fafc;
+    
+    // Adjust glass colors for dark mode
+    --color-glass-light: rgba(255, 255, 255, 0.1);
+    --color-glass-medium: rgba(255, 255, 255, 0.05);
+    --color-glass-dark: rgba(255, 255, 255, 0.03);
+    --color-glass-border: rgba(255, 255, 255, 0.1);
+  }
+}
+
+// Force dark mode class
+.dark {
+  --color-neutral-50: #0f172a;
+  --color-neutral-100: #1e293b;
+  --color-neutral-200: #334155;
+  --color-neutral-300: #475569;
+  --color-neutral-400: #64748b;
+  --color-neutral-500: #94a3b8;
+  --color-neutral-600: #cbd5e1;
+  --color-neutral-700: #e2e8f0;
+  --color-neutral-800: #f1f5f9;
+  --color-neutral-900: #f8fafc;
+  
+  --color-glass-light: rgba(255, 255, 255, 0.1);
+  --color-glass-medium: rgba(255, 255, 255, 0.05);
+  --color-glass-dark: rgba(255, 255, 255, 0.03);
+  --color-glass-border: rgba(255, 255, 255, 0.1);
+}
+
+// ===================================
+// CLIENT CUSTOMIZATION GUIDE
+// ===================================
+
+/*
+To customize for a new client:
+
+1. Create a new theme class (e.g., .theme-clientname)
+2. Override the CSS custom properties:
+   - --color-primary-* for main brand colors
+   - --color-secondary-* for accent colors
+   - --gradient-* for background gradients
+   - --shadow-brand for brand-specific shadows
+
+3. Apply the theme class to the body element:
+   <body class="theme-clientname">
+
+4. Optional: Create client-specific component overrides below
+
+Example usage in Angular:
+@Component({
+  selector: 'app-root',
+  template: '<div class="theme-healthcare">...</div>'
+})
+
+Or programmatically:
+document.body.className = 'theme-finance';
+*/

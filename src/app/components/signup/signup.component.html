@@ -8,20 +8,19 @@
         <div class="logo-section">
             <div class="maxxton-logo">
                 <h1>Join Maxxton</h1>
-                <p>Create your account in just 2 easy steps</p>
+                <p>Let's get you started</p>
             </div>
         </div>
 
         <!-- Progress indicator -->
         <div class="progress-indicator">
-            <div class="step" [class.active]="currentStep() >= 1" [class.completed]="currentStep() > 1">
+            <div class="step-wrapper" [class.active]="currentStep() >= 1" [class.completed]="currentStep() > 1">
                 <div class="step-number">1</div>
-                <span>Personal Info</span>
+                <span class="step-label">General Info</span>
             </div>
-            <div class="progress-line" [class.filled]="currentStep() > 1"></div>
-            <div class="step" [class.active]="currentStep() >= 2">
+            <div class="step-wrapper" [class.active]="currentStep() >= 2" [class.completed]="currentStep() > 2">
                 <div class="step-number">2</div>
-                <span>Account Setup</span>
+                <span class="step-label">Account Setup</span>
             </div>
         </div>
 
