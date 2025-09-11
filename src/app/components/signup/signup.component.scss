@@ -276,6 +276,34 @@
     }
 }
 
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.show-password-btn {
+    position: absolute;
+    right: 0.75rem;
+    background: none;
+    border: none;
+    color: #6e8efb;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0 0.5rem;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+
+.show-password-btn:hover {
+    color: #a777e3;
+}
+
+.show-password-btn svg {
+    vertical-align: middle;
+    pointer-events: none;
+}
+
 .next-btn,
 .signup-btn {
     width: 100%;

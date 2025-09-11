@@ -24,6 +24,8 @@ export class LoginComponent {
   loginType = signal<'client' | 'employee'>('client');
   errorMessage = signal('');
   showSignupSuggestion = signal(false);
+  showPassword = signal(false);
+  showEmpPassword = signal(false);
 
   // Computed signals
   isLoading = this.authService.isLoading;
@@ -49,6 +51,14 @@ export class LoginComponent {
     this.showEmployeeLogin.set(!this.showEmployeeLogin());
     this.loginType.set(this.showEmployeeLogin() ? 'employee' : 'client');
     this.errorMessage.set('');
+  }
+
+  toggleShowPassword() {
+    this.showPassword.set(!this.showPassword());
+  }
+
+  toggleShowEmpPassword() {
+    this.showEmpPassword.set(!this.showEmpPassword());
   }
 
   onSubmit(form: NgForm) {
