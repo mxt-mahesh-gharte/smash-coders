@@ -97,7 +97,7 @@ export class SignupComponent {
         const signupData = {
             fullName: this.fullName(),
             email: this.email(),
-            username: this.username(),
+            userName: this.username(),
             password: this.password()
         };
 

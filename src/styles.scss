@@ -129,5 +129,7 @@ a {
 }
 
 @media (min-width: 769px) {
-  .show-mobile-only { display: none !important; }
+    .show-mobile-only {
+        display: none !important;
+    }
 }
