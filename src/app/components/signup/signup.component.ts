@@ -23,6 +23,8 @@ export class SignupComponent {
     confirmPassword = signal('');
     currentStep = signal(1);
     errorMessage = signal('');
+    showPassword = signal(false);
+    showConfirmPassword = signal(false);
 
     // Computed validations
     isLoading = this.authService.isLoading;
@@ -77,6 +79,14 @@ export class SignupComponent {
         const value = (event.target as HTMLInputElement).value;
         this.confirmPassword.set(value);
         this.errorMessage.set('');
+    }
+
+    toggleShowPassword() {
+        this.showPassword.set(!this.showPassword());
+    }
+
+    toggleShowConfirmPassword() {
+        this.showConfirmPassword.set(!this.showConfirmPassword());
     }
 
     nextStep() {
