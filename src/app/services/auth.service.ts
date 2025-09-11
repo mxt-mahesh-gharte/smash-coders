@@ -203,17 +203,42 @@ export class AuthService {
     this._isLoading.set(true);
 
     const loginData: LoginRequest = { email, password };
+    console.log('🔄 Employee login API call to:', `${this.API_BASE_URL}/login`);
+    console.log('🔄 With data:', { email, password: '***' });
 
     return this.http.post<ApiResponse>(`${this.API_BASE_URL}/login`, loginData).pipe(
       map((response) => {
-        if (response.user) {
+        
+        // Handle different response structures
+        if (response.user || response.data) {
+          const userData = response.user || response.data;
           const user: User = {
-            id: response.user.id || response.user._id || 'emp-' + Date.now(),
-            email: response.user.email,
-            fullName: response.user.fullName,
-            userName: response.user.userName,
+            id: userData.id || userData._id || 'emp-' + Date.now(),
+            email: userData.email,
+            fullName: userData.fullName,
+            userName: userData.userName,
             type: 'employee', // Set as employee for this login method
-            avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(response.user.fullName)}&background=0066cc&color=fff`,
+            avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(userData.fullName)}&background=0066cc&color=fff`,
+            lastLogin: new Date()
+          };
+
+          this._currentUser.set(user);
+          this.storeAuth(user, response.token);
+          this._isLoading.set(false);
+
+          return user;
+        } else if (response.message && response.message.includes('Successfully')) {
+          // Handle case where API returns success message but no user object
+          // This might happen if the API response structure is different
+          console.log('Login successful but no user object returned. Using fallback user creation.');
+          
+          const user: User = {
+            id: 'emp-' + Date.now(),
+            email: loginData.email,
+            fullName: loginData.email.split('@')[0], // Fallback to email username
+            userName: loginData.email.split('@')[0],
+            type: 'employee',
+            avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(loginData.email.split('@')[0])}&background=0066cc&color=fff`,
             lastLogin: new Date()
           };
 

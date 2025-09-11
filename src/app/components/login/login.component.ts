@@ -62,8 +62,9 @@ export class LoginComponent {
   }
 
   onSubmit(form: NgForm) {
+    console.log('🔐 Login form submitted');
     if (!this.isFormValid()) return;
-
+    console.log('valid form submission');
     const email = this.email();
     const password = this.password();
 
@@ -88,17 +89,18 @@ export class LoginComponent {
 
         this.toastService.showSuccess(welcomeMessage);
 
-        // Force navigation using window.location for testing
-        console.log('🔄 Starting navigation in 1 second...');
-        setTimeout(() => {
-          if (user.type === 'client') {
-            console.log('🏠 Redirecting to dashboard...');
-            window.location.href = '/dashboard';
-          } else {
-            console.log('🏢 Redirecting to admin...');
-            window.location.href = '/admin';
-          }
-        }, 1000);
+        // Use Angular router instead of window.location for proper navigation
+        console.log('🔄 Starting navigation...');
+        if (user.type === 'client') {
+          console.log('🏠 Redirecting to dashboard...');
+          this.router.navigate(['/dashboard']);
+        } else if (user.type === 'employee') {
+          console.log('🏢 Redirecting to admin...');
+          this.router.navigate(['/admin']);
+        } else {
+          console.warn('⚠️ Unknown user type:', user.type);
+          this.router.navigate(['/login']);
+        }
       },
       error: (error) => {
         console.error('❌ Login failed:', error);
