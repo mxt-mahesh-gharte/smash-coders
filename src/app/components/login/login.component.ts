@@ -4,13 +4,14 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ToastService } from '../../services/toast.service';
+import { Client, HOTEL_CLIENTS } from '../../models/client.model';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.css'
 })
 export class LoginComponent {
   private authService = inject(AuthService);
@@ -26,6 +27,11 @@ export class LoginComponent {
   showSignupSuggestion = signal(false);
   showPassword = signal(false);
   showEmpPassword = signal(false);
+
+  // Client selection
+  showClientSelector = signal(true);
+  selectedClient = signal<Client | null>(null);
+  clients = HOTEL_CLIENTS;
 
   // Computed signals
   isLoading = this.authService.isLoading;
@@ -117,5 +123,53 @@ export class LoginComponent {
         }
       }
     });
+  }
+
+  // Client selection methods
+  selectClient(client: Client) {
+    this.selectedClient.set(client);
+    this.showClientSelector.set(false);
+    this.showEmployeeLogin.set(false);
+    this.loginType.set('client');
+    this.applyClientTheme(client);
+  }
+
+  selectEmployeeLogin() {
+    this.selectedClient.set(null);
+    this.showClientSelector.set(false);
+    this.showEmployeeLogin.set(true);
+    this.loginType.set('employee');
+    this.applyEmployeeTheme();
+  }
+
+  backToClientSelector() {
+    this.showClientSelector.set(true);
+    this.selectedClient.set(null);
+    this.showEmployeeLogin.set(false);
+    this.errorMessage.set('');
+    this.email.set('');
+    this.password.set('');
+    this.resetTheme();
+  }
+
+  private applyClientTheme(client: Client) {
+    const root = document.documentElement;
+    root.style.setProperty('--primary-color', client.primaryColor);
+    root.style.setProperty('--bg-color', client.backgroundColor);
+    root.style.setProperty('--text-color', client.textColor);
+  }
+
+  private applyEmployeeTheme() {
+    const root = document.documentElement;
+    root.style.setProperty('--primary-color', '#1565C0');
+    root.style.setProperty('--bg-color', '#E3F2FD');
+    root.style.setProperty('--text-color', '#1565C0');
+  }
+
+  private resetTheme() {
+    const root = document.documentElement;
+    root.style.removeProperty('--primary-color');
+    root.style.removeProperty('--bg-color');
+    root.style.removeProperty('--text-color');
   }
 }

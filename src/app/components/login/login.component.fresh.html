@@ -1,0 +1,129 @@
+<div class="login-wrapper">
+  <!-- Client Selection Screen -->
+  @if (showClientSelector()) {
+  <div class="client-selector">
+    <div class="selector-header">
+      <h1 class="main-title">Maxxton</h1>
+      <p class="main-subtitle">Select your hotel brand to continue</p>
+    </div>
+
+    <div class="clients-grid">
+      @for (client of clients; track client.id) {
+      <div class="client-card" (click)="selectClient(client)">
+        <div class="client-logo">{{ client.logo }}</div>
+        <div class="client-info">
+          <h3 class="client-name">{{ client.name }}</h3>
+          <p class="client-tagline">{{ client.tagline }}</p>
+          <span class="client-industry">{{ client.industry }}</span>
+        </div>
+        <div class="client-arrow">→</div>
+      </div>
+      }
+    </div>
+
+    <div class="employee-section">
+      <button class="employee-button" (click)="selectEmployeeLogin()">
+        🏢 Maxxton Employee Access
+      </button>
+    </div>
+  </div>
+  }
+
+  <!-- Branded Login Screen -->
+  @else {
+  <div class="branded-login"
+    [style.background-color]="selectedClient() ? selectedClient()!.backgroundColor : '#E3F2FD'">
+
+    <!-- Back Button -->
+    <button class="back-btn" (click)="backToClientSelector()">
+      ← Back to Brand Selection
+    </button>
+
+    <!-- Brand Header -->
+    <div class="brand-header">
+      @if (selectedClient()) {
+      <div class="brand-logo">{{ selectedClient()!.logo }}</div>
+      <h1 class="brand-name" [style.color]="selectedClient()!.primaryColor">
+        {{ selectedClient()!.name }}
+      </h1>
+      <p class="brand-tagline">{{ selectedClient()!.tagline }}</p>
+      } @else {
+      <div class="brand-logo">🏢</div>
+      <h1 class="brand-name" style="color: #1565C0;">Maxxton</h1>
+      <p class="brand-tagline">Employee Portal</p>
+      }
+    </div>
+
+    <!-- Login Form -->
+    <div class="login-card">
+      <div class="welcome-message">
+        @if (selectedClient()) {
+        <h2>Welcome Back!</h2>
+        <p>{{ selectedClient()!.welcomeMessage }}</p>
+        } @else {
+        <h2>Employee Login</h2>
+        <p>Access your Maxxton employee dashboard</p>
+        }
+      </div>
+
+      <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="login-form">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" class="form-input" [value]="email()"
+            (input)="onEmailChange($event)" placeholder="Enter your email" required autocomplete="email"
+            [disabled]="isLoading()">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="password-wrapper">
+            <input [type]="showPassword() ? 'text' : 'password'" id="password" name="password" class="form-input"
+              [value]="password()" (input)="onPasswordChange($event)" placeholder="Enter your password" required
+              autocomplete="current-password" [disabled]="isLoading()">
+            <button type="button" class="show-password-btn" (click)="toggleShowPassword()">
+              @if (showPassword()) {
+              👁️
+              } @else {
+              👁️‍🗨️
+              }
+            </button>
+          </div>
+        </div>
+
+        @if (errorMessage()) {
+        <div class="error-message">
+          ⚠️ {{ errorMessage() }}
+        </div>
+        }
+
+        @if (showSignupSuggestion()) {
+        <div class="signup-suggestion">
+          💡 Don't have an account? <a [routerLink]="['/signup']">Create one now</a>
+        </div>
+        }
+
+        <button type="submit" class="login-button"
+          [style.background-color]="selectedClient() ? selectedClient()!.primaryColor : '#1565C0'"
+          [disabled]="!isFormValid() || isLoading()">
+          @if (isLoading()) {
+          <span class="loading-spinner"></span>
+          Signing In...
+          } @else {
+          @if (selectedClient()) {
+          Sign In to {{ selectedClient()!.name }}
+          } @else {
+          Employee Sign In
+          }
+          }
+        </button>
+
+        @if (selectedClient()) {
+        <div class="form-footer">
+          <a [routerLink]="['/signup']">Don't have an account? <strong>Sign Up</strong></a>
+        </div>
+        }
+      </form>
+    </div>
+  </div>
+  }
+</div>
