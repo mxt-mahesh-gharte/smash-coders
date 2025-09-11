@@ -10,13 +10,13 @@ export const routes: Routes = [
     },
     {
         path: 'login',
-        loadComponent: () => import('./components/login.component').then(m => m.LoginComponent),
+        loadComponent: () => import('./components/login/login.component').then(m => m.LoginComponent),
         canActivate: [loginGuard],
         title: 'Maxxton - Client Login'
     },
     {
         path: 'signup',
-        loadComponent: () => import('./components/signup.component').then(m => m.SignupComponent),
+        loadComponent: () => import('./components/signup/signup.component').then(m => m.SignupComponent),
         canActivate: [loginGuard],
         title: 'Maxxton - Create Account'
     },
@@ -32,7 +32,7 @@ export const routes: Routes = [
     },
     {
         path: 'admin',
-        loadComponent: () => import('./components/admin.component').then(m => m.AdminComponent),
+        loadComponent: () => import('./components/admin/admin.component').then(m => m.AdminComponent),
         canActivate: [authGuard, employeeGuard],
         resolve: {
             user: userResolver

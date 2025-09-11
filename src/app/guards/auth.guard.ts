@@ -6,7 +6,6 @@ import { AuthService } from '../services/auth.service';
 export const authGuard: CanActivateFn = () => {
     const authService = inject(AuthService);
     const router = inject(Router);
-
     if (authService.isAuthenticated()) {
         return true;
     } else {
@@ -19,7 +18,6 @@ export const authGuard: CanActivateFn = () => {
 export const clientGuard: CanActivateFn = () => {
     const authService = inject(AuthService);
     const router = inject(Router);
-
     if (authService.isAuthenticated() && authService.isClient()) {
         return true;
     } else {
@@ -32,7 +30,6 @@ export const clientGuard: CanActivateFn = () => {
 export const employeeGuard: CanActivateFn = () => {
     const authService = inject(AuthService);
     const router = inject(Router);
-
     if (authService.isAuthenticated() && authService.isEmployee()) {
         return true;
     } else {
@@ -45,7 +42,6 @@ export const employeeGuard: CanActivateFn = () => {
 export const loginGuard: CanActivateFn = () => {
     const authService = inject(AuthService);
     const router = inject(Router);
-
     if (authService.isAuthenticated()) {
         if (authService.isClient()) {
             router.navigate(['/dashboard']);
@@ -54,6 +50,5 @@ export const loginGuard: CanActivateFn = () => {
         }
         return false;
     }
-
     return true;
 };
