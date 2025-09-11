@@ -1,0 +1,374 @@
+// Utility Classes - Generated from Design Tokens
+// These classes provide quick access to design system values
+
+@import 'design-tokens';
+@import 'mixins';
+
+// ===================================
+// SPACING UTILITIES
+// ===================================
+
+// Margin utilities
+@each $key, $value in (
+  '0': var(--space-0),
+  '1': var(--space-1),
+  '2': var(--space-2),
+  '3': var(--space-3),
+  '4': var(--space-4),
+  '5': var(--space-5),
+  '6': var(--space-6),
+  '8': var(--space-8),
+  '10': var(--space-10),
+  '12': var(--space-12),
+  '16': var(--space-16),
+  '20': var(--space-20),
+  '24': var(--space-24)
+) {
+  .m-#{$key} { margin: #{$value} !important; }
+  .mt-#{$key} { margin-top: #{$value} !important; }
+  .mr-#{$key} { margin-right: #{$value} !important; }
+  .mb-#{$key} { margin-bottom: #{$value} !important; }
+  .ml-#{$key} { margin-left: #{$value} !important; }
+  .mx-#{$key} { margin-left: #{$value} !important; margin-right: #{$value} !important; }
+  .my-#{$key} { margin-top: #{$value} !important; margin-bottom: #{$value} !important; }
+}
+
+// Padding utilities
+@each $key, $value in (
+  '0': var(--space-0),
+  '1': var(--space-1),
+  '2': var(--space-2),
+  '3': var(--space-3),
+  '4': var(--space-4),
+  '5': var(--space-5),
+  '6': var(--space-6),
+  '8': var(--space-8),
+  '10': var(--space-10),
+  '12': var(--space-12),
+  '16': var(--space-16),
+  '20': var(--space-20),
+  '24': var(--space-24)
+) {
+  .p-#{$key} { padding: #{$value} !important; }
+  .pt-#{$key} { padding-top: #{$value} !important; }
+  .pr-#{$key} { padding-right: #{$value} !important; }
+  .pb-#{$key} { padding-bottom: #{$value} !important; }
+  .pl-#{$key} { padding-left: #{$value} !important; }
+  .px-#{$key} { padding-left: #{$value} !important; padding-right: #{$value} !important; }
+  .py-#{$key} { padding-top: #{$value} !important; padding-bottom: #{$value} !important; }
+}
+
+// Gap utilities
+@each $key, $value in (
+  '0': var(--space-0),
+  '1': var(--space-1),
+  '2': var(--space-2),
+  '3': var(--space-3),
+  '4': var(--space-4),
+  '5': var(--space-5),
+  '6': var(--space-6),
+  '8': var(--space-8),
+  '10': var(--space-10),
+  '12': var(--space-12)
+) {
+  .gap-#{$key} { gap: #{$value} !important; }
+}
+
+// ===================================
+// COLOR UTILITIES
+// ===================================
+
+// Text colors
+.text-primary { color: var(--color-primary-500) !important; }
+.text-secondary { color: var(--color-secondary-500) !important; }
+.text-success { color: var(--color-success-500) !important; }
+.text-warning { color: var(--color-warning-500) !important; }
+.text-error { color: var(--color-error-500) !important; }
+.text-info { color: var(--color-info-500) !important; }
+
+// Neutral text colors
+.text-neutral-50 { color: var(--color-neutral-50) !important; }
+.text-neutral-100 { color: var(--color-neutral-100) !important; }
+.text-neutral-200 { color: var(--color-neutral-200) !important; }
+.text-neutral-300 { color: var(--color-neutral-300) !important; }
+.text-neutral-400 { color: var(--color-neutral-400) !important; }
+.text-neutral-500 { color: var(--color-neutral-500) !important; }
+.text-neutral-600 { color: var(--color-neutral-600) !important; }
+.text-neutral-700 { color: var(--color-neutral-700) !important; }
+.text-neutral-800 { color: var(--color-neutral-800) !important; }
+.text-neutral-900 { color: var(--color-neutral-900) !important; }
+
+// Background colors
+.bg-primary { background-color: var(--color-primary-500) !important; }
+.bg-secondary { background-color: var(--color-secondary-500) !important; }
+.bg-success { background-color: var(--color-success-500) !important; }
+.bg-warning { background-color: var(--color-warning-500) !important; }
+.bg-error { background-color: var(--color-error-500) !important; }
+.bg-info { background-color: var(--color-info-500) !important; }
+
+// Glass backgrounds
+.bg-glass-light { background: var(--color-glass-light) !important; }
+.bg-glass-medium { background: var(--color-glass-medium) !important; }
+.bg-glass-dark { background: var(--color-glass-dark) !important; }
+
+// Gradient backgrounds
+.bg-gradient-primary { background: var(--gradient-primary) !important; }
+.bg-gradient-secondary { background: var(--gradient-secondary) !important; }
+.bg-gradient-glass { background: var(--gradient-glass) !important; }
+
+// ===================================
+// TYPOGRAPHY UTILITIES
+// ===================================
+
+// Font sizes
+.text-xs { font-size: var(--font-size-xs) !important; }
+.text-sm { font-size: var(--font-size-sm) !important; }
+.text-base { font-size: var(--font-size-base) !important; }
+.text-lg { font-size: var(--font-size-lg) !important; }
+.text-xl { font-size: var(--font-size-xl) !important; }
+.text-2xl { font-size: var(--font-size-2xl) !important; }
+.text-3xl { font-size: var(--font-size-3xl) !important; }
+.text-4xl { font-size: var(--font-size-4xl) !important; }
+.text-5xl { font-size: var(--font-size-5xl) !important; }
+
+// Font weights
+.font-thin { font-weight: var(--font-weight-thin) !important; }
+.font-light { font-weight: var(--font-weight-light) !important; }
+.font-normal { font-weight: var(--font-weight-normal) !important; }
+.font-medium { font-weight: var(--font-weight-medium) !important; }
+.font-semibold { font-weight: var(--font-weight-semibold) !important; }
+.font-bold { font-weight: var(--font-weight-bold) !important; }
+.font-black { font-weight: var(--font-weight-black) !important; }
+
+// Text alignment
+.text-left { text-align: left !important; }
+.text-center { text-align: center !important; }
+.text-right { text-align: right !important; }
+
+// Line height
+.leading-tight { line-height: var(--line-height-tight) !important; }
+.leading-normal { line-height: var(--line-height-normal) !important; }
+.leading-relaxed { line-height: var(--line-height-relaxed) !important; }
+.leading-loose { line-height: var(--line-height-loose) !important; }
+
+// ===================================
+// BORDER UTILITIES
+// ===================================
+
+// Border radius
+.rounded-none { border-radius: var(--radius-none) !important; }
+.rounded-xs { border-radius: var(--radius-xs) !important; }
+.rounded-sm { border-radius: var(--radius-sm) !important; }
+.rounded-md { border-radius: var(--radius-md) !important; }
+.rounded-lg { border-radius: var(--radius-lg) !important; }
+.rounded-xl { border-radius: var(--radius-xl) !important; }
+.rounded-2xl { border-radius: var(--radius-2xl) !important; }
+.rounded-3xl { border-radius: var(--radius-3xl) !important; }
+.rounded-full { border-radius: var(--radius-full) !important; }
+
+// Border colors
+.border-primary { border-color: var(--color-primary-500) !important; }
+.border-secondary { border-color: var(--color-secondary-500) !important; }
+.border-neutral-200 { border-color: var(--color-neutral-200) !important; }
+.border-neutral-300 { border-color: var(--color-neutral-300) !important; }
+.border-glass { border-color: var(--color-glass-border) !important; }
+
+// ===================================
+// SHADOW UTILITIES
+// ===================================
+
+.shadow-xs { box-shadow: var(--shadow-xs) !important; }
+.shadow-sm { box-shadow: var(--shadow-sm) !important; }
+.shadow-md { box-shadow: var(--shadow-md) !important; }
+.shadow-lg { box-shadow: var(--shadow-lg) !important; }
+.shadow-xl { box-shadow: var(--shadow-xl) !important; }
+.shadow-2xl { box-shadow: var(--shadow-2xl) !important; }
+.shadow-glass { box-shadow: var(--shadow-glass) !important; }
+.shadow-glow { box-shadow: var(--shadow-glow) !important; }
+.shadow-none { box-shadow: none !important; }
+
+// ===================================
+// LAYOUT UTILITIES
+// ===================================
+
+// Display
+.block { display: block !important; }
+.inline-block { display: inline-block !important; }
+.inline { display: inline !important; }
+.flex { display: flex !important; }
+.inline-flex { display: inline-flex !important; }
+.grid { display: grid !important; }
+.hidden { display: none !important; }
+
+// Flex utilities
+.flex-col { flex-direction: column !important; }
+.flex-row { flex-direction: row !important; }
+.flex-wrap { flex-wrap: wrap !important; }
+.flex-nowrap { flex-wrap: nowrap !important; }
+
+.items-start { align-items: flex-start !important; }
+.items-center { align-items: center !important; }
+.items-end { align-items: flex-end !important; }
+.items-stretch { align-items: stretch !important; }
+
+.justify-start { justify-content: flex-start !important; }
+.justify-center { justify-content: center !important; }
+.justify-end { justify-content: flex-end !important; }
+.justify-between { justify-content: space-between !important; }
+.justify-around { justify-content: space-around !important; }
+
+.flex-1 { flex: 1 1 0% !important; }
+.flex-auto { flex: 1 1 auto !important; }
+.flex-none { flex: none !important; }
+
+// Position
+.relative { position: relative !important; }
+.absolute { position: absolute !important; }
+.fixed { position: fixed !important; }
+.sticky { position: sticky !important; }
+
+// Width & Height
+.w-full { width: 100% !important; }
+.w-auto { width: auto !important; }
+.h-full { height: 100% !important; }
+.h-auto { height: auto !important; }
+.min-h-screen { min-height: 100vh !important; }
+
+// ===================================
+// COMPONENT CLASSES
+// ===================================
+
+// Button components
+.btn {
+  @include button-base;
+  @include button-size(md);
+}
+
+.btn-sm {
+  @include button-base;
+  @include button-size(sm);
+}
+
+.btn-lg {
+  @include button-base;
+  @include button-size(lg);
+}
+
+.btn-primary {
+  @include button-variant(primary);
+}
+
+.btn-secondary {
+  @include button-variant(secondary);
+}
+
+.btn-ghost {
+  @include button-variant(ghost);
+}
+
+.btn-glass {
+  @include button-variant(glass);
+}
+
+// Input components
+.input {
+  @include input-base;
+}
+
+.input-glass {
+  @include input-base;
+  @include input-glass;
+}
+
+// Card components
+.card {
+  @include card-base;
+}
+
+.card-glass {
+  @include card-glass;
+}
+
+// Container
+.container {
+  @include container;
+}
+
+// ===================================
+// ANIMATION CLASSES
+// ===================================
+
+.fade-in {
+  @include fade-in;
+}
+
+.slide-up {
+  @include slide-up;
+}
+
+.bounce-in {
+  @include bounce-in;
+}
+
+// ===================================
+// UTILITY CLASSES
+// ===================================
+
+.sr-only {
+  @include visually-hidden;
+}
+
+.truncate {
+  @include truncate;
+}
+
+.backdrop-blur {
+  @include backdrop-blur;
+}
+
+// Transition utilities
+.transition { transition: var(--transition-normal) !important; }
+.transition-fast { transition: var(--transition-fast) !important; }
+.transition-slow { transition: var(--transition-slow) !important; }
+
+// ===================================
+// KEYFRAME ANIMATIONS
+// ===================================
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

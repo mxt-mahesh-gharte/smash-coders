@@ -1,0 +1,334 @@
+// Component Design System - Mixins and Utilities
+// This file contains reusable mixins and utility classes
+
+@import 'design-tokens';
+
+// ===================================
+// TYPOGRAPHY MIXINS
+// ===================================
+
+@mixin text-style($size, $weight: normal, $line-height: normal) {
+  font-size: var(--font-size-#{$size});
+  font-weight: var(--font-weight-#{$weight});
+  line-height: var(--line-height-#{$line-height});
+}
+
+@mixin heading-1 {
+  @include text-style(5xl, bold, tight);
+}
+
+@mixin heading-2 {
+  @include text-style(4xl, bold, tight);
+}
+
+@mixin heading-3 {
+  @include text-style(3xl, semibold, tight);
+}
+
+@mixin heading-4 {
+  @include text-style(2xl, semibold, normal);
+}
+
+@mixin heading-5 {
+  @include text-style(xl, medium, normal);
+}
+
+@mixin heading-6 {
+  @include text-style(lg, medium, normal);
+}
+
+@mixin body-large {
+  @include text-style(lg, normal, relaxed);
+}
+
+@mixin body-normal {
+  @include text-style(base, normal, normal);
+}
+
+@mixin body-small {
+  @include text-style(sm, normal, normal);
+}
+
+@mixin caption {
+  @include text-style(xs, normal, normal);
+}
+
+// ===================================
+// BUTTON MIXINS
+// ===================================
+
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--radius-lg);
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  white-space: nowrap;
+  user-select: none;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
+}
+
+@mixin button-size($size) {
+  @if $size == sm {
+    padding: var(--padding-button-sm);
+    font-size: var(--font-size-sm);
+    gap: var(--space-2);
+  } @else if $size == lg {
+    padding: var(--padding-button-lg);
+    font-size: var(--font-size-lg);
+    gap: var(--space-3);
+  } @else {
+    padding: var(--padding-button-md);
+    font-size: var(--font-size-base);
+    gap: var(--space-2);
+  }
+}
+
+@mixin button-variant($variant) {
+  @if $variant == primary {
+    background: var(--gradient-primary);
+    color: white;
+    box-shadow: var(--shadow-md);
+
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+  } @else if $variant == secondary {
+    background: var(--color-neutral-100);
+    color: var(--color-neutral-800);
+    border: 1px solid var(--color-neutral-300);
+
+    &:hover:not(:disabled) {
+      background: var(--color-neutral-200);
+      border-color: var(--color-neutral-400);
+    }
+  } @else if $variant == ghost {
+    background: transparent;
+    color: var(--color-neutral-700);
+
+    &:hover:not(:disabled) {
+      background: var(--color-neutral-100);
+    }
+  } @else if $variant == glass {
+    background: var(--color-glass-light);
+    color: white;
+    border: 1px solid var(--color-glass-border);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-glass);
+
+    &:hover:not(:disabled) {
+      background: var(--color-glass-medium);
+      transform: translateY(-1px);
+    }
+  }
+}
+
+// ===================================
+// FORM MIXINS
+// ===================================
+
+@mixin input-base {
+  width: 100%;
+  padding: var(--padding-input);
+  border: 2px solid var(--color-neutral-300);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-base);
+  background: white;
+  transition: var(--transition-normal);
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary-500);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  }
+
+  &:disabled {
+    background: var(--color-neutral-100);
+    color: var(--color-neutral-500);
+    cursor: not-allowed;
+  }
+
+  &.error {
+    border-color: var(--color-error-500);
+    
+    &:focus {
+      border-color: var(--color-error-500);
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    }
+  }
+}
+
+@mixin input-glass {
+  background: var(--color-glass-light);
+  border: 2px solid var(--color-glass-border);
+  backdrop-filter: blur(10px);
+  color: white;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  &:focus {
+    background: var(--color-glass-medium);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: var(--shadow-glass);
+  }
+}
+
+// ===================================
+// CARD MIXINS
+// ===================================
+
+@mixin card-base {
+  background: white;
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-sm);
+  padding: var(--padding-card);
+  transition: var(--transition-normal);
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+}
+
+@mixin card-glass {
+  background: var(--color-glass-light);
+  border: 1px solid var(--color-glass-border);
+  backdrop-filter: blur(15px);
+  box-shadow: var(--shadow-glass);
+  color: white;
+
+  &:hover {
+    background: var(--color-glass-medium);
+    transform: translateY(-2px);
+  }
+}
+
+// ===================================
+// LAYOUT MIXINS
+// ===================================
+
+@mixin container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+
+  @media (min-width: 640px) {
+    padding: 0 var(--space-6);
+  }
+
+  @media (min-width: 1024px) {
+    padding: 0 var(--space-8);
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin grid-auto($min-width: 250px) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
+  gap: var(--space-6);
+}
+
+// ===================================
+// ANIMATION MIXINS
+// ===================================
+
+@mixin fade-in($duration: normal) {
+  animation: fadeIn var(--animation-duration-#{$duration}) var(--animation-timing-ease);
+}
+
+@mixin slide-up($duration: normal) {
+  animation: slideUp var(--animation-duration-#{$duration}) var(--animation-timing-ease);
+}
+
+@mixin bounce-in($duration: normal) {
+  animation: bounceIn var(--animation-duration-#{$duration}) var(--animation-timing-bounce);
+}
+
+// ===================================
+// UTILITY MIXINS
+// ===================================
+
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin backdrop-blur($strength: 10px) {
+  backdrop-filter: blur($strength);
+  -webkit-backdrop-filter: blur($strength);
+}
+
+// ===================================
+// RESPONSIVE MIXINS
+// ===================================
+
+@mixin mobile-only {
+  @media (max-width: calc(var(--breakpoint-sm) - 1px)) {
+    @content;
+  }
+}
+
+@mixin tablet-up {
+  @media (min-width: var(--breakpoint-md)) {
+    @content;
+  }
+}
+
+@mixin desktop-up {
+  @media (min-width: var(--breakpoint-lg)) {
+    @content;
+  }
+}
+
+@mixin large-desktop-up {
+  @media (min-width: var(--breakpoint-xl)) {
+    @content;
+  }
+}

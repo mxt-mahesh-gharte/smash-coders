@@ -1,0 +1,153 @@
+// Main Design System Entry Point
+// Import this file in your global styles to access the complete design system
+
+// 1. Import design tokens first (CSS custom properties)
+@import 'design-tokens';
+
+// 2. Import mixins and functions
+@import 'mixins';
+
+// 3. Import utility classes
+@import 'utilities';
+
+// 4. Import theme configurations
+@import 'themes';
+
+// ===================================
+// BASE STYLES
+// ===================================
+
+// Apply design system to base elements
+html {
+  font-family: var(--font-family-sans);
+  line-height: var(--line-height-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--color-neutral-50);
+  color: var(--color-neutral-900);
+  font-size: var(--font-size-base);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+// Typography scale
+h1 { @include heading-1; }
+h2 { @include heading-2; }
+h3 { @include heading-3; }
+h4 { @include heading-4; }
+h5 { @include heading-5; }
+h6 { @include heading-6; }
+
+p {
+  @include body-normal;
+  margin-bottom: var(--space-4);
+}
+
+small {
+  @include caption;
+}
+
+// Links
+a {
+  color: var(--color-primary-500);
+  text-decoration: none;
+  transition: var(--transition-fast);
+
+  &:hover {
+    color: var(--color-primary-600);
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+}
+
+// Form elements get base styling
+input, select, textarea {
+  @extend .input;
+}
+
+button {
+  @extend .btn;
+  @extend .btn-primary;
+}
+
+// ===================================
+// DESIGN SYSTEM DOCUMENTATION
+// ===================================
+
+/*
+DESIGN SYSTEM USAGE GUIDE
+
+1. COLORS:
+   - Use color utilities: .text-primary, .bg-secondary, etc.
+   - Use CSS custom properties: var(--color-primary-500)
+   - Semantic colors available: primary, secondary, success, warning, error, info
+
+2. SPACING:
+   - Use spacing utilities: .m-4, .p-6, .gap-3, etc.
+   - Use CSS custom properties: var(--space-4)
+   - Scale: 0, 1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24 (in rem units)
+
+3. TYPOGRAPHY:
+   - Use text utilities: .text-lg, .font-semibold, etc.
+   - Use mixins: @include heading-1, @include body-normal
+   - Use CSS custom properties: var(--font-size-lg)
+
+4. COMPONENTS:
+   - Use component classes: .btn, .card, .input, etc.
+   - Use mixins: @include button-variant(primary), @include card-glass
+   - Extend with modifiers: .btn-lg, .card-glass
+
+5. LAYOUTS:
+   - Use layout utilities: .flex, .grid, .container, etc.
+   - Use layout mixins: @include flex-center, @include grid-auto
+
+6. ANIMATIONS:
+   - Use animation classes: .fade-in, .slide-up, .bounce-in
+   - Use transition utilities: .transition, .transition-fast
+   - Use mixins: @include fade-in(slow)
+
+7. RESPONSIVE DESIGN:
+   - Use responsive mixins: @include tablet-up, @include desktop-up
+   - Breakpoints: xs(475px), sm(640px), md(768px), lg(1024px), xl(1280px), 2xl(1536px)
+
+8. THEMING:
+   - Apply theme classes to body: .theme-healthcare, .theme-finance
+   - Override CSS custom properties for client customization
+   - Use .dark class for dark mode
+
+EXAMPLES:
+
+HTML:
+<button class="btn btn-primary btn-lg">Primary Button</button>
+<div class="card p-6 m-4">Card Content</div>
+<div class="flex items-center gap-4">Flex Layout</div>
+
+SCSS:
+.my-component {
+  @include card-glass;
+  @include fade-in;
+  
+  padding: var(--space-6);
+  background: var(--color-primary-500);
+  
+  @include tablet-up {
+    padding: var(--space-8);
+  }
+}
+
+THEMING:
+// Apply to body element
+<body class="theme-finance">
+
+// Or programmatically
+document.body.className = 'theme-healthcare';
+*/
